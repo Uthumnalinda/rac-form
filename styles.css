@@ -1,0 +1,725 @@
+:root {
+  --primary-purple: #3f1249;
+  --primary-purple-hover: #50165e;
+  --pill-bg: #ededed;
+  --card-bg: #eeeeee;
+  --quote-bg: #dcd6de;
+  --input-bg: #ffffff;
+  --text-dark: #000000;
+  --text-white: #ffffff;
+  --dot-inactive: #d9d9d9;
+  --dot-active: #350d43;
+  --error-border: #ef4444;
+  --error-bg: #fde8e8;
+  --error-text: #dc2626;
+  --card-radius: 46px;
+  --input-radius: 20px;
+  --btn-radius: 26px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", "Poppins", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-dark);
+  background-color: #2b0833;
+  background-image: url("assets/background.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 14px 44px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Mobile Frame */
+.mobile-frame {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 1. Top Pill Header */
+.top-pill {
+  width: 86%;
+  background: var(--pill-bg);
+  padding: 10px 24px;
+  border-radius: 999px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.club-logo {
+  display: block;
+  max-width: 240px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 2. Ceremony Banner */
+.ceremony-banner {
+  width: 100%;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: var(--text-white);
+}
+
+.emblem-col {
+  flex-shrink: 0;
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ceremony-emblem {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
+}
+
+.title-col {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 28px;
+  flex-shrink: 0;
+}
+
+.of-connector {
+  position: absolute;
+  left: 4px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-white);
+  text-transform: lowercase;
+}
+
+.ceremony-title {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.34;
+  color: var(--text-white);
+  letter-spacing: -0.01em;
+}
+
+/* 3. Main Form Card */
+.form-card {
+  width: 100%;
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  padding: 24px 22px 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  position: relative;
+}
+
+/* Two top notch lines */
+.card-notch-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 36px;
+  margin: 0 4px 16px;
+}
+
+.card-notch-line span {
+  display: block;
+  height: 2px;
+  flex: 1;
+  background: #5b2c6b;
+  border-radius: 2px;
+}
+
+/* Quote Box */
+.welcome-box {
+  background: var(--quote-bg);
+  border-radius: 18px;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  text-align: center;
+  line-height: 1.45;
+}
+
+.quote-mark {
+  font-family: Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #350d43;
+  vertical-align: baseline;
+  line-height: 1;
+}
+
+.welcome-text {
+  margin: 0 4px;
+  display: inline;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1f1426;
+  vertical-align: middle;
+}
+
+/* 4. Filling Stepper Progress Bar */
+.stepper-bar-wrap {
+  position: relative;
+  width: 82%;
+  margin: 0 auto 24px;
+  padding: 6px 0;
+}
+
+/* The connecting horizontal bar track */
+.stepper-track {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: var(--dot-inactive);
+  transform: translateY(-50%);
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Animated fill of the bar */
+.stepper-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--dot-active);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 4 Circle Nodes */
+.stepper-nodes {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.step-node {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg); /* hides track line behind node */
+}
+
+.step-node .node-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--dot-inactive);
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+
+/* Filled State */
+.step-node.filled .node-circle {
+  background: var(--dot-active);
+  transform: scale(1.08);
+  box-shadow: 0 2px 8px rgba(53, 13, 67, 0.45);
+}
+
+/* Pulse animation on newly filled node */
+.step-node.just-filled .node-circle {
+  animation: nodePop 0.35s ease;
+}
+
+@keyframes nodePop {
+  0% { transform: scale(0.9); }
+  50% { transform: scale(1.22); }
+  100% { transform: scale(1.08); }
+}
+
+/* 5. Form Fields */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-family: "Space Grotesk", "Montserrat", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.015em;
+  padding-left: 2px;
+}
+
+.input {
+  width: 100%;
+  height: 52px;
+  padding: 0 20px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  background: var(--input-bg);
+  border: 1.5px solid transparent;
+  border-radius: var(--input-radius);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12),
+              0 1px 2px rgba(255, 255, 255, 0.8);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.input::placeholder {
+  color: #a49ea8;
+  font-weight: 400;
+}
+
+.input:focus {
+  border-color: rgba(53, 13, 67, 0.4);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08),
+              0 0 0 3px rgba(53, 13, 67, 0.18);
+}
+
+/* Exact error style matching form_page reference: red border + light pinkish background */
+.input.invalid {
+  border: 1.5px solid var(--error-border);
+  background-color: var(--error-bg);
+  box-shadow: inset 0 1px 3px rgba(220, 38, 38, 0.08);
+}
+
+.error-text {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.78rem;
+  color: var(--error-text);
+  font-weight: 600;
+  padding-left: 2px;
+}
+
+.alert {
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: var(--error-text);
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 14px;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 175px;
+  height: 54px;
+  padding: 0 24px;
+  background: var(--primary-purple);
+  color: var(--text-white);
+  border: none;
+  border-radius: var(--btn-radius);
+  font-family: "Space Grotesk", "Montserrat", sans-serif;
+  font-size: 1.22rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 22px rgba(40, 10, 50, 0.5);
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: var(--primary-purple-hover);
+  box-shadow: 0 10px 26px rgba(40, 10, 50, 0.6);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Full-Screen Thank You Screen */
+.thank-you-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: #2b0833;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.thank-you-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thank-you-bg-img {
+  width: 100%;
+  max-width: 440px;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.thank-you-overlay {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.thank-you-title {
+  margin: 0;
+  font-family: "Space Grotesk", "Montserrat", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+.thank-you-details {
+  margin-top: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: slideUp 0.5s ease 0.2s both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.thank-you-note {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.thank-you-btn {
+  background: #ffffff;
+  color: #350d43;
+  border: none;
+  border-radius: var(--btn-radius);
+  padding: 12px 28px;
+  font-family: "Space Grotesk", "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.thank-you-btn:hover {
+  transform: translateY(-1px);
+  background: #f3edf6;
+}
+
+.submitted-summary {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  padding: 14px 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.submitted-summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 6px;
+}
+
+.submitted-summary div:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.submitted-summary span:first-child {
+  color: #6b6375;
+  font-weight: 500;
+}
+
+.submitted-summary span:last-child {
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: right;
+  word-break: break-word;
+}
+
+.secondary-btn {
+  background: var(--primary-purple);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--btn-radius);
+  padding: 12px 24px;
+  font-family: "Space Grotesk", "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(40, 10, 50, 0.35);
+  transition: background-color 0.15s ease;
+}
+
+.secondary-btn:hover {
+  background: var(--primary-purple-hover);
+}
+
+/* Error Modal Dialog */
+.error-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 5, 20, 0.75);
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 28px 24px 24px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-icon-wrap {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-icon-wrap svg {
+  width: 30px;
+  height: 30px;
+}
+
+.modal-title {
+  margin: 0 0 8px;
+  font-family: "Space Grotesk", "Montserrat", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1f1426;
+}
+
+.modal-desc {
+  margin: 0 0 22px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #574e64;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-primary-btn {
+  width: 100%;
+  height: 48px;
+  background: var(--primary-purple);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--btn-radius);
+  font-family: "Space Grotesk", "Montserrat", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(40, 10, 50, 0.35);
+  transition: background-color 0.15s ease;
+}
+
+.modal-primary-btn:hover {
+  background: var(--primary-purple-hover);
+}
+
+.modal-secondary-btn {
+  width: 100%;
+  height: 42px;
+  background: transparent;
+  color: #574e64;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--btn-radius);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal-secondary-btn:hover {
+  background: #f5f2f7;
+  color: #1f1426;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Responsiveness on very small screens */
+@media (max-width: 440px) {
+  body {
+    padding: 14px 8px 32px;
+  }
+
+  .top-pill {
+    width: 90%;
+    padding: 8px 18px;
+    margin-bottom: 16px;
+  }
+
+  .emblem-col {
+    width: 100px;
+  }
+
+  .ceremony-title {
+    font-size: 1.05rem;
+  }
+
+  .form-card {
+    padding: 20px 16px 26px;
+    border-radius: 36px;
+  }
+
+  .stepper-bar-wrap {
+    width: 86%;
+  }
+
+  .step-node {
+    width: 22px;
+    height: 22px;
+  }
+
+  .step-node .node-circle {
+    width: 18px;
+    height: 18px;
+  }
+
+  .input {
+    height: 48px;
+    border-radius: 16px;
+  }
+
+  .submit-btn {
+    width: 160px;
+    height: 48px;
+    font-size: 1.1rem;
+  }
+}
