@@ -70,11 +70,36 @@ export default {
           return jsonResponse({ error: "All fields are required." }, 400);
         }
 
+        // Check if an attendee with this Enrollment No or NIC is already registered
+        const normalizedEnrollment = enrollmentNumber.toUpperCase();
+        const normalizedNic = nicNumber.toUpperCase();
+
+        const existing = await env.DB.prepare(
+          `SELECT enrollment_number, nic_number FROM submissions
+           WHERE UPPER(enrollment_number) = ? OR UPPER(nic_number) = ?
+           LIMIT 1`
+        )
+          .bind(normalizedEnrollment, normalizedNic)
+          .all<{ enrollment_number: string; nic_number: string }>();
+
+        if (existing.results && existing.results.length > 0) {
+          const match = existing.results[0];
+          let message = "You have already registered for this ceremony.";
+          if (match.enrollment_number.toUpperCase() === normalizedEnrollment && match.nic_number.toUpperCase() === normalizedNic) {
+            message = "This Enrollment Number and NIC are already registered.";
+          } else if (match.enrollment_number.toUpperCase() === normalizedEnrollment) {
+            message = "This Enrollment Number is already registered.";
+          } else {
+            message = "This NIC Number is already registered.";
+          }
+          return jsonResponse({ error: message, duplicate: true }, 409);
+        }
+
         await env.DB.prepare(
           `INSERT INTO submissions (event_name, full_name, enrollment_number, contact_number, nic_number, submitted_at, synced)
            VALUES (?, ?, ?, ?, ?, ?, 0)`
         )
-          .bind(eventName, fullName, enrollmentNumber, contactNumber, nicNumber, submittedAt)
+          .bind(eventName, fullName, normalizedEnrollment, contactNumber, normalizedNic, submittedAt)
           .run();
 
         return jsonResponse({ ok: true }, 201);
