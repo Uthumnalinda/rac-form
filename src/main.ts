@@ -49,6 +49,8 @@ const errorModal = getElement<HTMLElement>("error-modal");
 const modalRetryBtn = getElement<HTMLButtonElement>("modal-retry-btn");
 const modalCancelBtn = getElement<HTMLButtonElement>("modal-cancel-btn");
 const modalErrMessage = getElement<HTMLParagraphElement>("modal-err-message");
+const modalErrTitle = getElement<HTMLHeadingElement>("modal-err-title");
+const modalIconWrap = getElement<HTMLDivElement>("modal-icon-wrap");
 
 let lastFailedPayload: AttendancePayload | null = null;
 
@@ -191,13 +193,23 @@ function hideAlert(): void {
   formAlert.classList.add("hidden");
 }
 
-function showErrorModal(message?: string): void {
-  if (message) {
-    modalErrMessage.textContent = message;
+function showErrorModal(message?: string, title = "Submission Failed", isWarning = false): void {
+  modalErrTitle.textContent = title;
+  modalErrMessage.textContent =
+    message || "We couldn’t reach the server. Don’t worry, your entered details are safe. Please check your internet connection and try again.";
+
+  if (isWarning) {
+    modalIconWrap.style.background = "#fef3c7";
+    modalIconWrap.style.color = "#d97706";
+    modalRetryBtn.textContent = "Review Form";
+    modalCancelBtn.classList.add("hidden");
   } else {
-    modalErrMessage.textContent =
-      "We couldn’t reach the server. Don’t worry, your entered details are safe. Please check your internet connection and try again.";
+    modalIconWrap.style.background = "#fee2e2";
+    modalIconWrap.style.color = "#dc2626";
+    modalRetryBtn.textContent = "Try Again";
+    modalCancelBtn.classList.remove("hidden");
   }
+
   errorModal.classList.remove("hidden");
 }
 
@@ -337,22 +349,21 @@ form.addEventListener("submit", async (e: SubmitEvent) => {
     showSuccess(payload);
   } catch (err: unknown) {
     console.error("Submission failed:", err);
-    const isDup = Boolean((err as { isDuplicate?: boolean })?.isDuplicate);
-    const message = (err as Error)?.message || "Could not record your attendance. Please check your internet connection.";
+    const errObj = err as { isDuplicate?: boolean; message?: string };
+    const isDup = Boolean(errObj?.isDuplicate);
+    const message = errObj?.message || "Could not record your attendance. Please check your internet connection.";
 
     if (isDup) {
-      // Show directly on the form so user can see which field conflicted
-      showAlert(message);
+      // Show error both on the modal dialog AND highlight the conflicting field
       if (message.toLowerCase().includes("enrollment")) {
         setFieldError("enrollmentNumber", message);
-        fields.enrollmentNumber.input.focus();
       } else if (message.toLowerCase().includes("nic")) {
         setFieldError("nicNumber", message);
-        fields.nicNumber.input.focus();
       }
+      showErrorModal(message, "Already Registered", true);
     } else {
       lastFailedPayload = payload;
-      showErrorModal("Could not record your attendance. Please check your internet connection and tap Try Again.");
+      showErrorModal("Could not record your attendance. Please check your internet connection and tap Try Again.", "Submission Failed", false);
     }
   } finally {
     setLoading(false);
@@ -360,6 +371,11 @@ form.addEventListener("submit", async (e: SubmitEvent) => {
 });
 
 modalRetryBtn.addEventListener("click", async () => {
+  if (modalRetryBtn.textContent === "Review Form") {
+    hideErrorModal();
+    return;
+  }
+
   if (!lastFailedPayload) {
     hideErrorModal();
     return;
