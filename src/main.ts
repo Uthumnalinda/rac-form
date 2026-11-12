@@ -42,7 +42,7 @@ const formAlert = getElement<HTMLDivElement>("form-alert");
 const formScreen = getElement<HTMLDivElement>("form-screen");
 const thankYouScreen = getElement<HTMLElement>("thank-you-screen");
 const submittedSummary = getElement<HTMLDivElement>("submitted-summary");
-const resetBtn = getElement<HTMLButtonElement>("reset-btn");
+const resetBtn = document.getElementById("reset-btn") as HTMLButtonElement | null;
 const stepperFill = getElement<HTMLDivElement>("stepper-fill");
 
 const errorModal = getElement<HTMLElement>("error-modal");
@@ -360,16 +360,18 @@ modalCancelBtn.addEventListener("click", () => {
   hideErrorModal();
 });
 
-resetBtn.addEventListener("click", () => {
-  form.reset();
-  hideAlert();
-  fieldKeys.forEach((key) => setFieldError(key, ""));
-  updateProgressAnimation();
-  thankYouScreen.classList.add("hidden");
-  formScreen.classList.remove("hidden");
-  fields.fullName.input.focus();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+if (resetBtn) {
+  resetBtn.addEventListener("click", () => {
+    form.reset();
+    hideAlert();
+    fieldKeys.forEach((key) => setFieldError(key, ""));
+    updateProgressAnimation();
+    thankYouScreen.classList.add("hidden");
+    formScreen.classList.remove("hidden");
+    fields.fullName.input.focus();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
 
 // Initialize on page load
 updateProgressAnimation();
