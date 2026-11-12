@@ -1,7 +1,7 @@
 "use strict";
 const CONFIG = {
     EVENT_NAME: "14th Installation Ceremony of Rotaract Club of Uva Wellassa University- Badulla",
-    ENDPOINT_URL: "",
+    ENDPOINT_URL: "https://rac-form-api.rac-uwu.workers.dev/submit",
 };
 function getElement(id) {
     const el = document.getElementById(id);

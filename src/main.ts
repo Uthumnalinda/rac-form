@@ -23,7 +23,7 @@ interface FieldEntry {
 
 const CONFIG: FormConfig = {
   EVENT_NAME: "14th Installation Ceremony of Rotaract Club of Uva Wellassa University- Badulla",
-  ENDPOINT_URL: "",
+  ENDPOINT_URL: "https://rac-form-api.rac-uwu.workers.dev/submit",
 };
 
 function getElement<T extends HTMLElement>(id: string): T {

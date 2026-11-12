@@ -5,4 +5,4 @@ compatibility_date = "2026-01-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "rac-attendance"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "9f62e0de-2172-479c-b5e3-da5e6dd5fc03"

@@ -3,7 +3,7 @@
  * Set a Time-driven Trigger (e.g. every 1 or 5 minutes) to run `syncSubmissions`.
  */
 
-const WORKER_BASE_URL = "https://YOUR-WORKER.workers.dev";
+const WORKER_BASE_URL = "https://rac-form-api.rac-uwu.workers.dev";
 const SYNC_SECRET = "YOUR_SYNC_SECRET";
 const SHEET_NAME = "Attendance";
 
