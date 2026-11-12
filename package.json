@@ -1,0 +1,16 @@
+{
+  "name": "rac-form",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Event attendance form for Rotaract Club of Uva Wellassa University - Badulla",
+  "scripts": {
+    "dev": "tsc && python3 -m http.server 3000",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}
+
