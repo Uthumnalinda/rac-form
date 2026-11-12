@@ -354,12 +354,20 @@ form.addEventListener("submit", async (e: SubmitEvent) => {
     const message = errObj?.message || "Could not record your attendance. Please check your internet connection.";
 
     if (isDup) {
-      // Show error both on the modal dialog AND highlight the conflicting field
-      if (message.toLowerCase().includes("enrollment")) {
+      const lower = message.toLowerCase();
+      const hasEnrollment = lower.includes("enrollment");
+      const hasNic = lower.includes("nic");
+
+      // Highlight the exact field(s) in red with the message
+      if (hasEnrollment && hasNic) {
+        setFieldError("enrollmentNumber", "This Enrollment Number is already registered.");
+        setFieldError("nicNumber", "This NIC Number is already registered.");
+      } else if (hasEnrollment) {
         setFieldError("enrollmentNumber", message);
-      } else if (message.toLowerCase().includes("nic")) {
+      } else if (hasNic) {
         setFieldError("nicNumber", message);
       }
+
       showErrorModal(message, "Already Registered", true);
     } else {
       lastFailedPayload = payload;
