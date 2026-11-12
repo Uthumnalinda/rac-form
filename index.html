@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>14th Installation Ceremony | Rotaract Club of Uva Wellassa University - Badulla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css?v=16" />
+</head>
+<body>
+  <div class="mobile-frame" id="form-screen">
+    <!-- Top Pill: Rotaract Logo -->
+    <header class="top-pill">
+      <img
+        src="assets/logo.png"
+        alt="Rotaract Club of Uva Wellassa University - Badulla"
+        class="club-logo"
+      />
+    </header>
+
+    <!-- Ceremony Header: 14th emblem + text -->
+    <section class="ceremony-banner" aria-label="Ceremony title">
+      <div class="emblem-col">
+        <img
+          src="assets/installation_ceromary_logo.png"
+          alt="14th Installation Ceremony Emblem"
+          class="ceremony-emblem"
+        />
+      </div>
+      <div class="title-col">
+        <span class="of-connector">of</span>
+        <h1 class="ceremony-title">
+          Rotaract Club of<br />
+          Uva Wellassa<br />
+          University- Badulla
+        </h1>
+      </div>
+    </section>
+
+    <!-- Form Container Card -->
+    <main class="form-card">
+      <!-- Top notch twin lines -->
+      <div class="card-notch-line" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- Welcome Quote Banner -->
+      <div class="welcome-box">
+        <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+        <span class="welcome-text">
+          Welcome to the 14th Installation Ceremony of Rotaract Club of Uva Wellassa University- Badulla
+        </span>
+        <span class="quote-mark" aria-hidden="true">&rdquo;</span>
+      </div>
+
+      <!-- Stepper Progress Bar (filling bar with 4 circles) -->
+      <div class="stepper-bar-wrap" aria-label="Form completion progress">
+        <div class="stepper-track" aria-hidden="true">
+          <div class="stepper-fill" id="stepper-fill"></div>
+        </div>
+        <div class="stepper-nodes" aria-hidden="true">
+          <div class="step-node" id="step-node-0" data-step="0">
+            <span class="node-circle"></span>
+          </div>
+          <div class="step-node" id="step-node-1" data-step="1">
+            <span class="node-circle"></span>
+          </div>
+          <div class="step-node" id="step-node-2" data-step="2">
+            <span class="node-circle"></span>
+          </div>
+          <div class="step-node" id="step-node-3" data-step="3">
+            <span class="node-circle"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attendance Form -->
+      <form id="attendance-form" class="form" novalidate>
+        <div class="field" data-field-index="0">
+          <label for="fullName" class="label">Full Name</label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            class="input"
+            placeholder="G . Ravindu Sankalpa"
+            autocomplete="name"
+            required
+          />
+          <p class="error-text" id="fullName-error" aria-live="polite"></p>
+        </div>
+
+        <div class="field" data-field-index="1">
+          <label for="enrollmentNumber" class="label">Enrollment No</label>
+          <input
+            type="text"
+            id="enrollmentNumber"
+            name="enrollmentNumber"
+            class="input"
+            placeholder="UWU/XXX/XX/XX"
+            autocomplete="off"
+            required
+          />
+          <p class="error-text" id="enrollmentNumber-error" aria-live="polite"></p>
+        </div>
+
+        <div class="field" data-field-index="2">
+          <label for="contactNumber" class="label">Contact No</label>
+          <input
+            type="tel"
+            id="contactNumber"
+            name="contactNumber"
+            class="input"
+            placeholder="0784567654"
+            autocomplete="tel"
+            inputmode="tel"
+            required
+          />
+          <p class="error-text" id="contactNumber-error" aria-live="polite"></p>
+        </div>
+
+        <div class="field" data-field-index="3">
+          <label for="nicNumber" class="label">NIC No</label>
+          <input
+            type="text"
+            id="nicNumber"
+            name="nicNumber"
+            class="input"
+            placeholder="200123444666"
+            autocomplete="off"
+            required
+          />
+          <p class="error-text" id="nicNumber-error" aria-live="polite"></p>
+        </div>
+
+        <div id="form-alert" class="alert hidden" role="alert"></div>
+
+        <div class="form-actions">
+          <button type="submit" id="submit-btn" class="submit-btn">
+            <span class="btn-text">Submit</span>
+            <span class="btn-spinner hidden" aria-hidden="true"></span>
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <!-- Full-Screen Thank You Screen Matching Assets -->
+  <aside id="thank-you-screen" class="thank-you-screen hidden" aria-live="polite">
+    <div class="thank-you-backdrop" aria-hidden="true">
+      <img src="assets/Thank_you_page.png" alt="" class="thank-you-bg-img" />
+    </div>
+
+    <div class="thank-you-overlay">
+      <h2 class="thank-you-title">Thank You...</h2>
+
+      <div class="thank-you-details">
+        <p class="thank-you-note">Your attendance has been recorded successfully.</p>
+        <div class="submitted-summary" id="submitted-summary"></div>
+        <button type="button" id="reset-btn" class="thank-you-btn">
+          Submit Another Response
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Failure / Error Modal Dialog -->
+  <aside id="error-modal" class="error-modal hidden" role="alertdialog" aria-modal="true" aria-labelledby="modal-err-title">
+    <div class="modal-backdrop" aria-hidden="true"></div>
+    <div class="modal-card">
+      <div class="modal-icon-wrap" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+      </div>
+      <h3 id="modal-err-title" class="modal-title">Submission Failed</h3>
+      <p id="modal-err-message" class="modal-desc">
+        We couldn’t reach the server. Don’t worry, your entered details are safe. Please check your internet connection and try again.
+      </p>
+      <div class="modal-actions">
+        <button type="button" id="modal-retry-btn" class="modal-primary-btn">
+          Try Again
+        </button>
+        <button type="button" id="modal-cancel-btn" class="modal-secondary-btn">
+          Review Form
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <script type="module" src="dist/main.js?v=11"></script>
+</body>
+</html>
