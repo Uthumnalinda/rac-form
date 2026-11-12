@@ -235,6 +235,13 @@ async function submitWithRetry(url, payload, retries = 2) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
             });
+            // If the backend says duplicate (409 Conflict), don't retry, throw custom error
+            if (response.status === 409) {
+                const data = await response.json().catch(() => ({ error: "Already registered." }));
+                const err = new Error(data.error || "This Enrollment Number or NIC has already been registered.");
+                err.isDuplicate = true;
+                throw err;
+            }
             if (!response.ok) {
                 const text = await response.text().catch(() => "");
                 throw new Error(text || `Server responded with ${response.status}`);
@@ -243,6 +250,10 @@ async function submitWithRetry(url, payload, retries = 2) {
         }
         catch (err) {
             lastError = err;
+            // Do not retry if it's an explicit duplicate conflict
+            if (err.isDuplicate) {
+                throw err;
+            }
             if (attempt < retries) {
                 await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
             }
@@ -278,8 +289,24 @@ form.addEventListener("submit", async (e) => {
     }
     catch (err) {
         console.error("Submission failed:", err);
-        lastFailedPayload = payload;
-        showErrorModal("Could not record your attendance. Please check your internet connection and tap Try Again.");
+        const isDup = Boolean(err?.isDuplicate);
+        const message = err?.message || "Could not record your attendance. Please check your internet connection.";
+        if (isDup) {
+            // Show directly on the form so user can see which field conflicted
+            showAlert(message);
+            if (message.toLowerCase().includes("enrollment")) {
+                setFieldError("enrollmentNumber", message);
+                fields.enrollmentNumber.input.focus();
+            }
+            else if (message.toLowerCase().includes("nic")) {
+                setFieldError("nicNumber", message);
+                fields.nicNumber.input.focus();
+            }
+        }
+        else {
+            lastFailedPayload = payload;
+            showErrorModal("Could not record your attendance. Please check your internet connection and tap Try Again.");
+        }
     }
     finally {
         setLoading(false);
