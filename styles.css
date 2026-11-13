@@ -43,10 +43,31 @@ body {
   align-items: flex-start;
   padding: 24px 14px 44px;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+  min-height: 100vh;
 }
 
-/* Mobile Frame */
+/* Glass frosted overlay only on the background image (behind all logos & forms) */
+.glass-bg-blur {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 25%,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(43, 8, 51, 0.25) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Mobile Frame sits above the glass background */
 .mobile-frame {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 440px;
   margin: 0 auto;
